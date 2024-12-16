@@ -62,10 +62,13 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
-      max: 1,
-      idleTimeoutMillis: 0,
-      connectionTimeoutMillis: 5000,
-    },
+      max: 2,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
+      allowExitOnIdle: true,
+      statement_timeout: 30000,
+      query_timeout: 30000
+    }
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
@@ -78,17 +81,6 @@ export default buildConfig({
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
-  express: {
-    json: {
-      limit: '5mb'
-    },
-    compress: true,
-    trustProxy: true,
-  },
-  rateLimit: {
-    window: 15 * 60 * 1000,
-    max: 100,
   },
   graphQL: {
     disablePlaygroundInProduction: true,
