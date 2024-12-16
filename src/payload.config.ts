@@ -62,8 +62,12 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
-      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-      max: 10,
+      ssl: {
+        rejectUnauthorized: false,
+        require: true
+      },
+      max: 5,
+      idleTimeoutMillis: 30000,
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
