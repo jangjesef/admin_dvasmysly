@@ -63,8 +63,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
       ssl: {
-        rejectUnauthorized: false,
-        require: true
+        rejectUnauthorized: false
       },
       max: 5,
       idleTimeoutMillis: 30000,
