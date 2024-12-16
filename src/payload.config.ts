@@ -62,8 +62,8 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
-      max: 5,
-      idleTimeoutMillis: 30000,
+      max: 3,
+      idleTimeoutMillis: 0,
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
